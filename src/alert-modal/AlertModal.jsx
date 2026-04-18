@@ -9,7 +9,7 @@ const AlertModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-999">
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-9999">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-sm p-6">
         {/* Title */}
         <h2 className="text-lg font-semibold mb-2 text-gray-800">{title}</h2>

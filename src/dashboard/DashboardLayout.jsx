@@ -18,20 +18,20 @@ import {
 } from "lucide-react";
 
 const MENU_ITEMS = [
-  { id: "fms", label: "Flow Monitoring (FMS)", icon: Activity, path: "/fms" },
   { id: "ims", label: "Inventory (IMS)", icon: Warehouse, path: "/ims" },
   { id: "pms", label: "Production (PMS)", icon: Factory, path: "/pms" },
-  {
-    id: "web-forms",
-    label: "Web Based Form",
-    icon: Form,
-    path: "/forms",
-  },
+  { id: "fms", label: "Flow Monitoring (FMS)", icon: Activity, path: "/fms" },
   {
     id: "dashboard",
-    label: "Dashboards",
+    label: "Analytics Dashboard",
     icon: LayoutDashboard,
     path: "/dashboard",
+  },
+  {
+    id: "web-forms",
+    label: "Web Based Forms",
+    icon: Form,
+    path: "/forms",
   },
 ];
 
@@ -103,7 +103,7 @@ function DashboardLayout() {
   return (
     <div className="max-h-screen  text-gray-800 font-sans antialiased flex items-center justify-center">
       <div
-        className="flex h-screen w-full max-w-screen-2xl border-t border-gray-900 relative overflow-hidden"
+        className="flex h-screen w-full max-w-screen-2xl border border-gray-900 relative overflow-hidden"
         style={{
           background: "linear-gradient(90deg, #dcefe7, #eef6f2)",
         }}
@@ -165,10 +165,10 @@ function DashboardLayout() {
 
           {/* Create button */}
           {location.pathname !== "/" && (
-            <div className="border-t border-gray-900 p-2 mt-auto">
+            <div className="border-t border-gray-900 px-2 py-1 mt-auto">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`w-full flex items-center px-3 py-3 rounded-sm transition-all duration-200 hover:bg-gray-300 hover:text-gray-900 hover:translate-x-1 cursor-pointer`}
+                className={`w-full flex items-center px-3 py-3 rounded-sm transition-all duration-200 hover:bg-gray-400 hover:text-gray-900 hover:translate-x-1 cursor-pointer`}
                 title="Create card"
               >
                 <PlusCircle size={24} className="shrink-0" />
@@ -188,9 +188,9 @@ function DashboardLayout() {
         </aside>
 
         {/* Main */}
-        <main className="flex-1 flex flex-col relative min-w-0">
+        <main className="px-4 py-3 flex-1 flex flex-col relative gap-3 min-w-0">
           {/* Navbar */}
-          <header className="p-4 flex gap-4 items-start z-10">
+          <header className="flex gap-4 items-start z-10">
             {/* updated search input*/}
             <div className="flex-1 flex items-center border-2 border-gray-400 rounded-sm px-4 py-2">
               <input
@@ -275,7 +275,7 @@ function DashboardLayout() {
           </header>
 
           {/* Content */}
-          <div className="flex-1 relative p-4 overflow-y-auto">
+          <div className="border-3 border-pink-600 flex-1 relative overflow-y-auto">
             {/* <Outlet /> */}
             <Outlet context={{ searchQuery: debouncedSearch }} />
           </div>

@@ -9,7 +9,8 @@ import IMS from "./sidebar-elements/IMS";
 import FMS from "./sidebar-elements/FMS";
 import PMS from "./sidebar-elements/PMS";
 import Dashboards from "./sidebar-elements/Dashboards";
-import MaterialForm from "./components/Material Form/MaterialForm";
+// import MaterialForm from "./components/Material Form/MaterialForm";
+import MainInOutForm from "./components/01_form-In-Out/MainInOutForm";
 import ReactFormContainer from "./sidebar-elements/ReactFormContainer";
 
 function App() {
@@ -32,9 +33,11 @@ function App() {
         <Route path="ims" element={<IMS />} />
         <Route path="fms" element={<FMS />} />
         <Route path="pms" element={<PMS />} />
-        <Route path="forms" element={<ReactFormContainer />} />
-        <Route path="forms/in-out" element={<MaterialForm />} />
         <Route path="dashboard" element={<Dashboards />} />
+
+        <Route path="forms" element={<ReactFormContainer />}>
+          <Route path="in-out" element={<MainInOutForm />} />
+        </Route>
       </Route>
     </Routes>
   );
