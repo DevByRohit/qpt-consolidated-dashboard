@@ -16,8 +16,8 @@ const MaterialTable = ({
   watch,
 }) => {
   return (
-    <div className="flex-1 border rounded overflow-hidden min-h-0">
-      <div className="h-full overflow-y-auto space-y-3 p-2">
+    <div className="flex-1 overflow-hidden min-h-0">
+      <div className="h-full overflow-y-auto space-y-3">
         {fields.map((field, index) => (
           <MaterialRow
             key={field.id}

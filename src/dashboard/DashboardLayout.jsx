@@ -216,7 +216,7 @@ function DashboardLayout() {
 
               {isProfileOpen && (
                 <div
-                  className="absolute right-0 top-full mt-2 w-85 bg-white border-2 border-gray-300 rounded-lg p-5 z-50 shadow-lg"
+                  className="absolute right-0 top-full mt-2 w-85  border-2 border-gray-300 rounded-lg p-5 z-50 shadow-lg"
                   style={{
                     background: "linear-gradient(90deg, #dcefe7, #eef6ff)",
                   }}
@@ -275,7 +275,7 @@ function DashboardLayout() {
           </header>
 
           {/* Content */}
-          <div className="border-3 border-pink-600 flex-1 relative overflow-y-auto">
+          <div className="flex-1 relative overflow-y-auto">
             {/* <Outlet /> */}
             <Outlet context={{ searchQuery: debouncedSearch }} />
           </div>

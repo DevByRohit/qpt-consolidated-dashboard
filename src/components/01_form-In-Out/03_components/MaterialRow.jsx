@@ -136,7 +136,7 @@ const MaterialRow = ({
   };
 
   return (
-    <div className="grid grid-cols-[40px_0.9fr_1fr_80px_140px_120px_1fr_50px] gap-3 items-center">
+    <div className="grid grid-cols-[40px_0.6fr_1.4fr_80px_140px_0.7fr_50px] gap-3 items-center">
       {/* Index */}
       <div className="text-center text-lg font-medium">{index + 1}</div>
 
@@ -198,27 +198,12 @@ const MaterialRow = ({
 
       {/* UNIT */}
       <input
+        type="hidden"
         {...register(`items.${index}.unit`)}
         readOnly
         placeholder="Unit"
         className="border-2 border-gray-600 focus:border-blue-600 focus:outline-none focus:ring-0 rounded px-2 py-1.5 text-[16px] font-medium"
       />
-
-      {/* DATE */}
-      <div>
-        <input
-          type="date"
-          {...register(`items.${index}.date`, {
-            required: "Date required",
-          })}
-          className="border-2 border-gray-600 focus:border-blue-600 focus:outline-none focus:ring-0 rounded px-2 py-1.5 w-full text-[16px] font-medium"
-        />
-        {errors?.items?.[index]?.date && (
-          <p className="text-red-500 text-xs mt-1">
-            {errors.items[index].date.message}
-          </p>
-        )}
-      </div>
 
       {/* QTY */}
       <div>
@@ -245,6 +230,22 @@ const MaterialRow = ({
         {errors?.items?.[index]?.quantity && (
           <p className="text-red-500 text-xs mt-1">
             {errors.items[index].quantity.message}
+          </p>
+        )}
+      </div>
+
+      {/* DATE */}
+      <div>
+        <input
+          type="date"
+          {...register(`items.${index}.date`, {
+            required: "Date required",
+          })}
+          className="border-2 border-gray-600 focus:border-blue-600 focus:outline-none focus:ring-0 rounded px-2 py-1.5 w-full text-[16px] font-medium"
+        />
+        {errors?.items?.[index]?.date && (
+          <p className="text-red-500 text-xs mt-1">
+            {errors.items[index].date.message}
           </p>
         )}
       </div>

@@ -1,26 +1,24 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import FormsGrid from "./react-forms/components/FormsGrid";
 
 const ReactFormContainer = () => {
   const location = useLocation();
   const isFormsRoute = location.pathname === "/forms";
 
   return (
-    <>
-      <div>
-        <div className={isFormsRoute ? "block" : "hidden"}>
-          <h1>Web forms cards also visible here..</h1>
+    <div className="flex flex-col">
+      {/* Forms Listing */}
+      {isFormsRoute && (
+        <>
+          <FormsGrid />
+        </>
+      )}
 
-          <ul className="border-2 border-red-500">
-            <Link to={"/forms/in-out"}>
-              <li>Material In/Out Form</li>
-            </Link>
-          </ul>
-        </div>
-
-        {/* <Outlet /> */}
+      {/* Form Render */}
+      <div className="flex-1 overflow-hidden">
         <Outlet />
       </div>
-    </>
+    </div>
   );
 };
 
