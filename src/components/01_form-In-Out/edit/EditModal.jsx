@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IN_OUT_API } from "../../apiContainer";
+import Loader from "../../../alert-modal/Loader";
 
 const EditModal = ({ txn, onClose, onSuccess, setAlertConfig }) => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -106,81 +107,93 @@ const EditModal = ({ txn, onClose, onSuccess, setAlertConfig }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-      <div className="bg-white p-4 rounded w-120 space-y-3">
-        <h2 className="text-lg font-semibold">Edit Entry</h2>
-
-        <input
-          value={formData.sku}
-          onChange={(e) => handleChange("sku", e.target.value)}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="SKU"
+    <>
+      {loading && (
+        <Loader
+          message="Updating entry..."
+          subMessage="Please wait, saving changes"
         />
+      )}
+      <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
+        <div className="bg-white p-4 rounded w-120 space-y-3">
+          <h2 className="text-lg font-semibold">Edit Entry</h2>
 
-        <input
-          value={formData.itemName}
-          onChange={(e) => handleChange("itemName", e.target.value)}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="Item Name"
-        />
+          <input
+            value={formData.sku}
+            onChange={(e) => handleChange("sku", e.target.value)}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="SKU"
+          />
 
-        <input
-          value={formData.unit}
-          onChange={(e) => handleChange("unit", e.target.value)}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="Unit"
-        />
+          <input
+            value={formData.itemName}
+            onChange={(e) => handleChange("itemName", e.target.value)}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Item Name"
+          />
 
-        <input
-          type="number"
-          value={formData.quantity}
-          onChange={(e) => handleChange("quantity", Math.abs(e.target.value))}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="Qty"
-        />
+          <input
+            value={formData.unit}
+            onChange={(e) => handleChange("unit", e.target.value)}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Unit"
+          />
 
-        <select
-          value={formData.transactionType}
-          onChange={(e) => handleChange("transactionType", e.target.value)}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        >
-          <option value="In">In</option>
-          <option value="Out">Out</option>
-        </select>
+          <input
+            type="number"
+            value={formData.quantity}
+            onChange={(e) => handleChange("quantity", Math.abs(e.target.value))}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Qty"
+          />
 
-        <input
-          type="date"
-          value={formData.date}
-          onChange={(e) => handleChange("date", e.target.value)}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-        />
-
-        <input
-          value={formData.remarks}
-          onChange={(e) => handleChange("remarks", e.target.value)}
-          className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="Remarks"
-        />
-
-        {/* ACTIONS */}
-        <div className="flex justify-end gap-2 pt-2">
-          <button
-            onClick={onClose}
-            className="border px-3 py-1 rounded cursor-pointer"
+          <select
+            value={formData.transactionType}
+            onChange={(e) => handleChange("transactionType", e.target.value)}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            Cancel
-          </button>
+            <option value="In">In</option>
+            <option value="Out">Out</option>
+          </select>
 
-          <button
-            onClick={handleUpdate}
-            disabled={loading}
-            className="border px-3 py-1 rounded bg-blue-600 text-white cursor-pointer"
-          >
-            {loading ? "Updating..." : "Update"}
-          </button>
+          <input
+            type="date"
+            value={formData.date}
+            onChange={(e) => handleChange("date", e.target.value)}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+
+          <input
+            value={formData.remarks}
+            onChange={(e) => handleChange("remarks", e.target.value)}
+            className="w-full px-2 py-1 border-2 border-gray-400 rounded font-medium text-gray-800 placeholder-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Remarks"
+          />
+
+          {/* ACTIONS */}
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              onClick={onClose}
+              className="border px-3 py-1 rounded cursor-pointer"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={handleUpdate}
+              disabled={loading}
+              className={`border px-3 py-1 rounded cursor-pointer ${
+                loading
+                  ? "opacity-50 cursor-not-allowed"
+                  : "bg-blue-600 text-white"
+              }`}
+            >
+              {loading ? "Updating..." : "Update"}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
