@@ -119,7 +119,7 @@ const MaterialRow = ({
 
     const qty = Number(value);
 
-    if (qty < 1) return "Min 1";
+    if (qty < 0) return "Min 1";
 
     const formType = watch("formType");
     const sku = watch(`items.${index}.sku`);
@@ -209,7 +209,7 @@ const MaterialRow = ({
       <div>
         <input
           type="number"
-          min="1"
+          step="any"
           placeholder="Qty"
           {...register(`items.${index}.quantity`, {
             validate: validateQuantity,
