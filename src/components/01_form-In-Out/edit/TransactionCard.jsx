@@ -66,7 +66,7 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
 
   return (
     <>
-      <div className="relative group border rounded p-2 shadow-sm hover:shadow-lg transition duration-200 cursor-pointer">
+      <div className="relative group border-2 border-gray-500 rounded p-2 shadow-sm hover:shadow-lg transition duration-200 cursor-pointer">
         {/* CONTENT */}
         <div className="space-y-1 text-xs font-medium uppercase">
           <p>
@@ -90,6 +90,7 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
         <div className="absolute bottom-2 right-2 flex gap-3 opacity-0 group-hover:opacity-100 transition duration-300">
           <button
             onClick={() => setOpenEdit(true)}
+            title="Edit Entry"
             className="p-1 rounded border shadow hover:bg-blue-600 hover:text-white cursor-pointer"
           >
             <Edit size={18} />
@@ -98,6 +99,7 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
           <button
             onClick={handleDelete}
             disabled={isDeleting}
+            title="Delete Entry"
             className={`p-1 rounded border shadow cursor-pointer ${isDeleting ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600 hover:text-white"}`}
           >
             {isDeleting ? "..." : <Trash2 size={18} />}

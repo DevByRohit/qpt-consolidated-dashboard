@@ -1,4 +1,9 @@
-const EditHeader = ({ selectedDate, setSelectedDate, onRefresh }) => {
+const EditHeader = ({
+  selectedDate,
+  setSelectedDate,
+  onRefresh,
+  transactions,
+}) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const isAdmin = user?.role === "Admin" || user?.role === "Developer";
 
@@ -12,7 +17,7 @@ const EditHeader = ({ selectedDate, setSelectedDate, onRefresh }) => {
             type="date"
             value={selectedDate.toISOString().split("T")[0]}
             onChange={(e) => setSelectedDate(new Date(e.target.value))}
-            className="border px-2 py-1 rounded cursor-pointer"
+            className="border px-2 py-1 rounded cursor-pointer font-medium"
           />
         )}
 
@@ -22,6 +27,10 @@ const EditHeader = ({ selectedDate, setSelectedDate, onRefresh }) => {
         >
           Refresh
         </button>
+
+        <div className="border px-2 py-1 rounded">
+          <h3 className="font-medium">Total Entry : {transactions.length}</h3>
+        </div>
       </div>
     </div>
   );

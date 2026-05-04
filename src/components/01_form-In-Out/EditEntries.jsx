@@ -4,12 +4,28 @@ import TransactionCard from "./edit/TransactionCard";
 import useTransactions from "./edit/useTransactions";
 import AlertModal from "../../alert-modal/AlertModal";
 import Loader from "../../alert-modal/Loader";
+import { useOutletContext } from "react-router-dom";
 
 const EditEntries = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [totalEntry, setTotalEntry] = useState(0);
 
-  const { transactions, loading, fetchTransactions } =
-    useTransactions(selectedDate);
+  // search implementation
+  const { searchQuery } = useOutletContext();
+
+  const { transactions, loading, fetchTransactions } = useTransactions(selectedDate);
+
+  const filteredTransactions = transactions.filter((txn) => {
+    const query = searchQuery.toLowerCase();
+
+    return (
+      txn.itemname?.toLowerCase().includes(query) ||
+      txn.sku?.toLowerCase().includes(query) ||
+      txn.transactionid?.toString().includes(query) ||
+      txn.quantity?.toString().includes(query) ||
+      txn.transactiontype?.toLowerCase().includes(query)
+    );
+  });
 
   // Alert state
   const [alertConfig, setAlertConfig] = useState({
@@ -27,6 +43,7 @@ const EditEntries = () => {
           selectedDate={selectedDate}
           setSelectedDate={setSelectedDate}
           onRefresh={fetchTransactions}
+          transactions={transactions}
         />
 
         {/* SCROLLABLE CONTENT */}
@@ -44,7 +61,7 @@ const EditEntries = () => {
             <p className="text-gray-500">No entries found</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-              {transactions.map((txn) => (
+              {filteredTransactions.map((txn) => (
                 <TransactionCard
                   key={txn.transactionid}
                   txn={txn}

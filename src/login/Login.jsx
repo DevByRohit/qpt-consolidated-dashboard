@@ -57,7 +57,7 @@ const Login = () => {
 
         setAlert({
           open: true,
-          title: "Login Successful",
+          title: "Login Successfully",
           message: "Welcome back 👋",
           type: "info",
         });

@@ -25,7 +25,7 @@ export const CardProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    fetchCards(); // ✅ only once
+    fetchCards(); // only once
   }, []);
 
   return (

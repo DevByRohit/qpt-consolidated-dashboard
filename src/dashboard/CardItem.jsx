@@ -49,6 +49,7 @@ const CardItem = ({
             <div className="flex justify-between items-center">
               {/* Open */}
               <button
+                title={`Open ${card.title}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   handleOpen();
@@ -62,29 +63,32 @@ const CardItem = ({
               {/* Edit + Delete */}
               <div className="flex gap-3">
                 <button
+                  title="Edit Card"
                   onClick={(e) => {
                     e.stopPropagation();
                     onEdit && onEdit(card);
                   }}
                   className="flex items-center border border-gray-400 px-3 py-1.5 rounded hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all duration-300 cursor-pointer"
                 >
-                  <Edit size={16} />
+                  <Edit size={18} />
                 </button>
 
                 <button
+                  title="Delete Card"
                   onClick={(e) => {
                     e.stopPropagation();
                     onDelete && onDelete(card);
                   }}
                   className="flex items-center border border-gray-400 px-3 py-1.5 rounded hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-300 cursor-pointer"
                 >
-                  <Trash2 size={16} />
+                  <Trash2 size={18} />
                 </button>
               </div>
             </div>
           ) : (
             // ✅ Normal User View (Full Width Button)
             <button
+              title={`Open ${card.title}`}
               onClick={(e) => {
                 e.stopPropagation();
                 handleOpen();

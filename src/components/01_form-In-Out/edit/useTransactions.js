@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { IN_OUT_API } from "../../apiContainer";
 
-const cache = {}; // 🔥 global cache
+const cache = {}; // global cache
 
 const useTransactions = (selectedDate) => {
   const [transactions, setTransactions] = useState([]);
@@ -31,8 +31,6 @@ const useTransactions = (selectedDate) => {
       });
 
       const result = await res.json();
-
-      console.log("Transactions:", result);
 
       if (result.status === "success") {
         setTransactions(result.data);

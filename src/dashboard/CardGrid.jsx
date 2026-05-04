@@ -19,7 +19,7 @@ const CardGrid = ({ module, setAlert, searchQuery }) => {
     const matchesModule = card.module === module;
 
     const matchesSearch =
-      !searchQuery || // 👈 important
+      !searchQuery ||
       card.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       card.url?.toLowerCase().includes(searchQuery.toLowerCase());
 
