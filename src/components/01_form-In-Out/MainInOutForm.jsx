@@ -89,6 +89,22 @@ const MainInOutForm = () => {
   };
 
   const onSubmit = (data) => {
+    // ROLE VALIDATION
+    const allowedRoles = ["Admin", "Developer", "Operation Manager"];
+
+    const userRole = user?.role;
+
+    if (data.formType === "In" && !allowedRoles.includes(userRole)) {
+      setAlertConfig({
+        isOpen: true,
+        title: "Unauthorized",
+        message: `You are not authorized to perform "IN" transactions. Please contact Admin (Abhinav Sir) for access.`,
+        type: "info",
+      });
+      return;
+    }
+
+    // NORMAL FLOW
     setAlertConfig({
       isOpen: true,
       title: "Confirm Submission",
@@ -104,7 +120,7 @@ const MainInOutForm = () => {
     try {
       setIsSubmitting(true);
 
-      // 🔥 Close confirm modal
+      // Close confirm modal
       setAlertConfig((prev) => ({ ...prev, isOpen: false }));
 
       const payload = {
@@ -160,7 +176,7 @@ const MainInOutForm = () => {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <>
       <form
@@ -208,14 +224,14 @@ const MainInOutForm = () => {
         </div>
       </form>
 
-      {/* 🔥 GLOBAL ALERT MODAL */}
+      {/* GLOBAL ALERT MODAL */}
       <AlertModal
         isOpen={alertConfig.isOpen}
         title={alertConfig.title}
         message={alertConfig.message}
         type={alertConfig.type}
         onConfirm={() => {
-          alertConfig.onConfirm?.(); // 🔥 execute confirm action
+          alertConfig.onConfirm?.();
           setAlertConfig((prev) => ({ ...prev, isOpen: false }));
         }}
         onCancel={() => setAlertConfig((prev) => ({ ...prev, isOpen: false }))}

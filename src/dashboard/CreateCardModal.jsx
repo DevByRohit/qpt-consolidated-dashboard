@@ -100,7 +100,7 @@ const CreateCardModal = ({ isOpen, onClose, onSuccess, setAlert }) => {
           {/* Image */}
           <div>
             <label className="text-[16px] font-medium">
-              Image URL (optional)
+              Image URL (Optional)
             </label>
             <input
               {...register("image")}
@@ -112,7 +112,7 @@ const CreateCardModal = ({ isOpen, onClose, onSuccess, setAlert }) => {
           {/* Title */}
           <div>
             <label className="text-[16px] font-medium">
-              Name of the Card *
+              Name of the Card / System <span className="text-red-600">*</span>
             </label>
             <input
               {...register("title", { required: true })}
@@ -123,7 +123,9 @@ const CreateCardModal = ({ isOpen, onClose, onSuccess, setAlert }) => {
 
           {/* Link */}
           <div>
-            <label className="text-[16px] font-medium">Redirect URL *</label>
+            <label className="text-[16px] font-medium">
+              Redirect URL / System URL <span className="text-red-600">*</span>
+            </label>
             <input
               {...register("link", { required: true })}
               placeholder="https://example.com or /fms/page"

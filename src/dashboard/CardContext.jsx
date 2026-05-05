@@ -11,6 +11,8 @@ export const CardProvider = ({ children }) => {
 
   const fetchCards = async () => {
     try {
+      setLoading(true);
+
       const res = await fetch(API_URL);
       const result = await res.json();
 
