@@ -10,10 +10,14 @@ import FMS from "./sidebar-elements/FMS";
 import PMS from "./sidebar-elements/PMS";
 import Dashboards from "./sidebar-elements/Dashboards";
 import ReactFormContainer from "./sidebar-elements/ReactFormContainer";
+import PayrollOperations from "./sidebar-elements/PayrollOperations";
 
 // Material In/Out form and Edit window
 import MainInOutForm from "./components/01_form-In-Out/MainInOutForm";
 import EditEntries from "./components/01_form-In-Out/EditEntries";
+
+// Salary distribution system
+import SalaryDistribution from "./sidebar-elements/salary-distribution/SalaryDistribution";
 
 function App() {
   return (
@@ -43,7 +47,10 @@ function App() {
           <Route path="in-out/edit" element={<EditEntries />} />
         </Route>
 
-        {/* Nested routes for editing the different system data which we submit by react forms  */}
+        {/* Nested routes for salary distribution system */}
+        <Route path="payroll" element={<PayrollOperations />}>
+          <Route path="salary-dist" element={<SalaryDistribution />} />
+        </Route>
       </Route>
     </Routes>
   );

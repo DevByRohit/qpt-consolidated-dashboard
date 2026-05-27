@@ -26,7 +26,7 @@ const EditCardModal = ({ isOpen, onClose, onSuccess, setAlert, card }) => {
   // 🔥 FINAL API CALL
   const handleFinalSubmit = async (data) => {
     try {
-      // 🔥 CLOSE CONFIRM ALERT FIRST
+      // CLOSE CONFIRM ALERT FIRST
       setAlert((prev) => ({ ...prev, open: false }));
 
       // small delay to allow UI update
@@ -74,7 +74,7 @@ const EditCardModal = ({ isOpen, onClose, onSuccess, setAlert, card }) => {
     }
   };
 
-  // 🔥 HANDLE SUBMIT (CONFIRM FIRST)
+  // HANDLE SUBMIT (CONFIRM FIRST)
   const submit = (data) => {
     if (isSubmitting) return;
 

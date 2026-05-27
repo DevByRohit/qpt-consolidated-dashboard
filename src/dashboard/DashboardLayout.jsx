@@ -15,6 +15,7 @@ import {
   Form,
   LayoutDashboard,
   PlusCircle,
+  Landmark,
 } from "lucide-react";
 
 const MENU_ITEMS = [
@@ -29,9 +30,15 @@ const MENU_ITEMS = [
   },
   {
     id: "web-forms",
-    label: "Web Based Forms",
+    label: "Custom Web Forms",
     icon: Form,
     path: "/forms",
+  },
+  {
+    id: "payroll-operations",
+    label: "Payroll Operations",
+    icon: Landmark,
+    path: "/payroll",
   },
 ];
 

@@ -16,8 +16,15 @@ const CardItem = ({
   const handleOpen = () => {
     if (!card.url) return;
 
-    if (card.url.startsWith("/")) {
-      navigate(card.url);
+    if (card.type === "internal") {
+      // 1. Create a URL object from the backend string
+      const urlObject = new URL(card.url);
+
+      // 2. Extract only the path (e.g., "/forms/in-out")
+      const pathOnly = urlObject.pathname;
+
+      // 3. Use the path with your navigate function
+      navigate(pathOnly);
     } else {
       window.open(card.url, "_blank");
     }

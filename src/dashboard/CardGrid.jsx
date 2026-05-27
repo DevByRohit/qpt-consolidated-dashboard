@@ -14,7 +14,7 @@ const CardGrid = ({ module, setAlert, searchQuery }) => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  // 🔥 NEW: delete loading
+  // delete loading
   const [isDeleting, setIsDeleting] = useState(false);
 
   // filter logic

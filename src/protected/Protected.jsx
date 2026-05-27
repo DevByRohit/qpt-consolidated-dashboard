@@ -6,5 +6,6 @@ function Protected({ children }) {
   }
   return children;
 }
+// I want to protect the PayrollOperations.jsx sidebar element and only accounts can access this
 
 export default Protected;

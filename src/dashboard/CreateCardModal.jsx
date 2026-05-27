@@ -14,12 +14,13 @@ const CreateCardModal = ({ isOpen, onClose, onSuccess, setAlert }) => {
 
   if (!isOpen) return null;
 
-  // ✅ detect module from route
+  // detect module from route
   const getModule = () => {
     if (location.pathname.includes("fms")) return "fms";
     if (location.pathname.includes("ims")) return "ims";
     if (location.pathname.includes("pms")) return "pms";
     if (location.pathname.includes("dashboard")) return "dashboard";
+    if (location.pathname.includes("payroll")) return "payroll";
     return "";
   };
 

@@ -28,32 +28,39 @@ function Index({ setAlert }) {
     );
   });
 
-  // ✅ Group by module
+  // Group by module
   const grouped = {
     fms: filteredCards.filter((c) => c.module === "fms"),
     ims: filteredCards.filter((c) => c.module === "ims"),
     pms: filteredCards.filter((c) => c.module === "pms"),
     dashboard: filteredCards.filter((c) => c.module === "dashboard"),
+    payroll: filteredCards.filter((c) => c.module === "payroll"),
   };
 
   return (
     <div className="space-y-8">
-      {/* ❌ No Result UI */}
+      {/* No Result UI */}
       {filteredCards.length === 0 && !loading && (
-        <div className="text-center mt-20 text-gray-500">
-          <p className="text-2xl font-medium">No cards found</p>
-          <p className="text-sm mt-1">
-            We couldn’t find any cards matching your search. Try a different
-            keyword.
-          </p>
+        <div className="text-center mt-20 text-gray-400">
+          <p className="text-2xl font-medium">No Systems found</p>
+          <div className="mt-2">
+            <p>
+              <strong>
+                We couldn’t find any systems matching your search.
+              </strong>
+            </p>
+            <p>
+              <strong>Please try a different keyword.</strong>
+            </p>
+          </div>
         </div>
       )}
 
-      {/* ✅ Grouped Results */}
+      {/* Grouped Results */}
       {Object.entries(grouped).map(([module, items]) =>
         items.length > 0 ? (
           <div key={module}>
-            <h2 className="text-xl font-semibold mb-3 uppercase text-gray-700">
+            <h2 className="border-l-8 pl-2 border-green-600 text-xl font-bold mb-3 uppercase text-gray-700">
               {module}
             </h2>
 

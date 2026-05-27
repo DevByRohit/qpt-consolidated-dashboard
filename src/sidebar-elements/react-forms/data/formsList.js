@@ -1,7 +1,7 @@
 export const formsList = [
   {
     id: "in-out",
-    title: "Material In / Out Form",
+    title: "Material In / Out Form with Edit Entry System",
     url: "/forms/in-out",
     edit: "/forms/in-out/edit",
     image:
