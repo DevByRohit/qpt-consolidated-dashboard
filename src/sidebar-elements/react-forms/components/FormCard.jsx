@@ -10,9 +10,9 @@ const FormCard = ({ form }) => {
   };
 
   // open edit window for ims entries
-  const editOpen = () => {
-    navigate(form.edit);
-  };
+  // const editOpen = () => {
+  //   navigate(form.edit);
+  // };
 
   return (
     <div className="bg-white border border-gray-200 rounded-md overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col p-2">
@@ -35,19 +35,10 @@ const FormCard = ({ form }) => {
           {/* Open form button */}
           <button
             onClick={formOpen}
-            className="mt-auto w-fit flex items-center justify-center gap-1 font-medium border border-gray-400 py-1 px-3 rounded hover:bg-gray-900 hover:text-white transition cursor-pointer"
+            className="mt-auto w-full flex items-center justify-center gap-2 font-medium border border-gray-400 py-1 px-3 rounded hover:bg-gray-900 hover:text-white transition cursor-pointer"
           >
-            <ExternalLink size={18} />
-            Open
-          </button>
-
-          {/* Open edit window */}
-          <button
-            onClick={editOpen}
-            className="mt-auto w-fit flex items-center justify-center gap-1 font-medium border border-gray-400 py-1 px-2 rounded hover:bg-green-700 hover:text-white transition cursor-pointer"
-          >
-            <Edit size={18} />
-            Edit entry
+            <form.icon size={20} />
+            {form.btnText}
           </button>
         </div>
       </div>

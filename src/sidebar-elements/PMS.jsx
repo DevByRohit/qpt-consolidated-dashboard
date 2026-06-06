@@ -1,9 +1,13 @@
 import CardGrid from "../dashboard/CardGrid";
 import { useState } from "react";
 import AlertModal from "../alert-modal/AlertModal";
-import { useOutletContext } from "react-router-dom";
+import { Outlet, useLocation, useOutletContext } from "react-router-dom";
+import FormsGrid from "./react-forms/components/FormsGrid";
 
 const PMS = () => {
+  const location = useLocation();
+  const isProductionPlanning = location.pathname === "/pms";
+
   const [alert, setAlert] = useState({
     open: false,
     title: "",
@@ -17,7 +21,16 @@ const PMS = () => {
 
   return (
     <>
-      <CardGrid module="pms" searchQuery={searchQuery} setAlert={setAlert} />
+      {isProductionPlanning && (
+        <CardGrid module="pms" searchQuery={searchQuery} setAlert={setAlert} />
+      )}
+
+      {/* Render nested component inside the PMS */}
+      <div className="flex-1 overflow-hidden">
+        <Outlet />
+      </div>
+
+      {/* <FormsGrid /> */}
 
       <AlertModal
         isOpen={alert.open}

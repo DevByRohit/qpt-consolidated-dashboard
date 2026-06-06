@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./login/Login";
 import Protected from "./protected/Protected";
+import RoleProtectedRoute from "./protected/RoleProtectedRoute";
 import DashboardLayout from "./dashboard/DashboardLayout";
 
 // Side Navbar Elements
@@ -19,6 +20,9 @@ import EditEntries from "./components/01_form-In-Out/EditEntries";
 // Salary distribution system
 import SalaryDistribution from "./sidebar-elements/salary-distribution/SalaryDistribution";
 
+// Production Planning system
+import ProductionPlanning from "./sidebar-elements/production-planning/ProductionPlanning";
+
 function App() {
   return (
     <Routes>
@@ -35,10 +39,9 @@ function App() {
         }
       >
         {/* Nested routes for sidebar */}
-        <Route index element={<Index />} />
+        <Route path="/" element={<Index />} />
         <Route path="ims" element={<IMS />} />
         <Route path="fms" element={<FMS />} />
-        <Route path="pms" element={<PMS />} />
         <Route path="dashboard" element={<Dashboards />} />
 
         {/* Nested routes for web based forms inside the sidebar element for container */}
@@ -47,8 +50,19 @@ function App() {
           <Route path="in-out/edit" element={<EditEntries />} />
         </Route>
 
+        <Route path="pms" element={<PMS />}>
+          <Route path="production-planning" element={<ProductionPlanning />} />
+        </Route>
+
         {/* Nested routes for salary distribution system */}
-        <Route path="payroll" element={<PayrollOperations />}>
+        <Route
+          path="payroll"
+          element={
+            <RoleProtectedRoute>
+              <PayrollOperations />
+            </RoleProtectedRoute>
+          }
+        >
           <Route path="salary-dist" element={<SalaryDistribution />} />
         </Route>
       </Route>

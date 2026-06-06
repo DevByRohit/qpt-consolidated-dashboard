@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import CreateCardModal from "./CreateCardModal";
 import logo from "../assets/qualitex_logo.png";
 import AlertModal from "../alert-modal/AlertModal";
+import { ROLE_PERMISSIONS } from "../config/permissions";
 
 import {
   Search,
@@ -16,9 +17,11 @@ import {
   LayoutDashboard,
   PlusCircle,
   Landmark,
+  House,
 } from "lucide-react";
 
 const MENU_ITEMS = [
+  { id: "home", label: "Home Page", icon: House, path: "/" },
   { id: "ims", label: "Inventory (IMS)", icon: Warehouse, path: "/ims" },
   { id: "pms", label: "Production (PMS)", icon: Factory, path: "/pms" },
   { id: "fms", label: "Flow Monitoring (FMS)", icon: Activity, path: "/fms" },
@@ -47,6 +50,13 @@ function DashboardLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [user, setUser] = useState(null);
+
+  // Configure user permissions
+  const allowedMenus = ROLE_PERMISSIONS[user?.role] || [];
+
+  console.log(user?.role);
+  console.log(allowedMenus);
+
   const profileRef = useRef(null);
 
   // use for navigate the route
@@ -74,6 +84,20 @@ function DashboardLayout() {
   });
 
   const location = useLocation();
+
+  // this code controll the header of the dashboard
+  const HEADER_CONFIG = {
+    "/forms/in-out": {
+      showHeader: false,
+    },
+
+    "/pms/production-planning": {
+      showHeader: false,
+    },
+  };
+
+  const currentHeaderConfig = HEADER_CONFIG[location.pathname];
+  const showHeader = currentHeaderConfig?.showHeader ?? true;
 
   // ✅ Load user
   useEffect(() => {
@@ -108,13 +132,14 @@ function DashboardLayout() {
   };
 
   return (
-    <div className="max-h-screen  text-gray-800 font-sans antialiased flex items-center justify-center">
+    <div className="max-h-screen text-gray-800 font-sans antialiased flex items-center justify-center">
       <div
-        className="flex h-screen w-full max-w-screen-2xl border border-gray-900 relative overflow-hidden"
+        className="flex h-screen w-full border border-gray-900 relative overflow-hidden"
         style={{
           background: "linear-gradient(90deg, #dcefe7, #eef6f2)",
         }}
       >
+        {/* max-w-screen-2xl */}
         {/* Sidebar */}
         <aside
           className={`flex flex-col border-r border-gray-900 transition-all duration-300 ease-in-out z-20 ${isSidebarOpen ? "w-64" : "w-16"}`}
@@ -148,26 +173,30 @@ function DashboardLayout() {
 
           {/* Menu */}
           <nav className="flex-1 py-4 flex flex-col gap-1 px-2 overflow-y-auto overflow-visible">
-            {MENU_ITEMS.map((item) => (
-              <NavLink
-                key={item.id}
-                to={item.path}
-                className={({ isActive }) =>
-                  `group relative flex items-center px-3 py-3 rounded-sm transition-all duration-200 ${isActive ? "bg-gray-400 text-gray-950" : "hover:bg-gray-300 hover:text-gray-900 hover:translate-x-1"}`
-                }
-              >
-                <item.icon size={24} className="shrink-0" />
-
-                <span
-                  className={`ml-3 overflow-hidden whitespace-nowrap font-medium transition-all duration-200 ${
-                    isSidebarOpen ? "max-w-50 opacity-100" : "max-w-0 opacity-0"
-                  }`}
-                  title={`${item.label}`}
+            {MENU_ITEMS.filter((item) => allowedMenus.includes(item.id)).map(
+              (item) => (
+                <NavLink
+                  key={item.id}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `group relative flex items-center px-3 py-3 rounded-sm transition-all duration-200 ${isActive ? "bg-gray-400 text-gray-950" : "hover:bg-gray-300 hover:text-gray-900 hover:translate-x-1"}`
+                  }
                 >
-                  {item.label}
-                </span>
-              </NavLink>
-            ))}
+                  <item.icon size={24} className="shrink-0" />
+
+                  <span
+                    className={`ml-3 overflow-hidden whitespace-nowrap font-medium transition-all duration-200 ${
+                      isSidebarOpen
+                        ? "max-w-50 opacity-100"
+                        : "max-w-0 opacity-0"
+                    }`}
+                    title={`${item.label}`}
+                  >
+                    {item.label}
+                  </span>
+                </NavLink>
+              ),
+            )}
           </nav>
 
           {/* Create button */}
@@ -197,89 +226,91 @@ function DashboardLayout() {
         {/* Main */}
         <main className="px-4 py-3 flex-1 flex flex-col relative gap-3 min-w-0">
           {/* Navbar */}
-          <header className="flex gap-4 items-start z-10">
-            {/* updated search input*/}
-            <div className="flex-1 flex items-center border-2 border-gray-400 rounded-sm px-4 py-2">
-              <input
-                type="text"
-                placeholder="Search here..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="bg-transparent border-none outline-none flex-1 text-gray-800 placeholder-gray-900 w-full font-medium"
-              />
-              <Search className="w-6 h-6 text-gray-900 mr-1 shrink-0 cursor-pointer" />
-            </div>
+          {showHeader && (
+            <header className="flex gap-4 items-start z-10">
+              {/* updated search input*/}
+              <div className="flex-1 flex items-center border-2 border-gray-400 rounded-sm px-4 py-2">
+                <input
+                  type="text"
+                  placeholder="Search here..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-transparent border-none outline-none flex-1 text-gray-800 placeholder-gray-900 w-full font-medium"
+                />
+                <Search className="w-6 h-6 text-gray-900 mr-1 shrink-0 cursor-pointer" />
+              </div>
 
-            {/* Profile */}
-            <div ref={profileRef} className="relative">
-              <button
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-3 border-2 border-gray-400 rounded-sm px-4 py-2 font-medium hover:bg-gray-800 hover:text-gray-100 transition-colors cursor-pointer"
-                title="User Profile"
-              >
-                <span>{user?.name || "User"}</span>
-                <ChevronDown size={20} />
-              </button>
-
-              {isProfileOpen && (
-                <div
-                  className="absolute right-0 top-full mt-2 w-85  border-2 border-gray-300 rounded-lg p-5 z-50 shadow-lg"
-                  style={{
-                    background: "linear-gradient(90deg, #dcefe7, #eef6ff)",
-                  }}
+              {/* Profile */}
+              <div ref={profileRef} className="relative">
+                <button
+                  onClick={() => setIsProfileOpen(!isProfileOpen)}
+                  className="flex items-center gap-3 border-2 border-gray-400 rounded-sm px-4 py-2 font-medium hover:bg-gray-800 hover:text-gray-100 transition-colors cursor-pointer"
+                  title="User Profile"
                 >
-                  {/* Header */}
-                  <div className="text-sm text-gray-500 mb-3 tracking-wide">
-                    Currently in
-                  </div>
+                  <span>{user?.name || "User"}</span>
+                  <ChevronDown size={20} />
+                </button>
 
-                  {/* User Information */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-14 h-14 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center text-xl font-semibold text-gray-700 shrink-0">
-                      {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
-                    </div>
-
-                    <div className="flex-1 overflow-hidden">
-                      <div className="text-gray-900 truncate font-semibold">
-                        {user?.name || "No Name"}
-                      </div>
-                      <div className="text-gray-700 truncate mt-0.5">
-                        {user?.email || "No Email"}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="border-t border-gray-300 my-3"></div>
-
-                  {/* Role */}
-                  <div className="text-sm text-gray-700 mb-4">
-                    <span className="font-medium">Account Type:</span>{" "}
-                    <span className="text-blue-600 font-semibold">
-                      {user?.role || "User"}
-                    </span>
-                  </div>
-
-                  {/* Logout */}
-                  <button
-                    onClick={() =>
-                      setAlert({
-                        open: true,
-                        title: "Logout",
-                        message: "Are you sure you want to logout?",
-                        type: "confirm",
-                        onConfirm: handleLogout,
-                      })
-                    }
-                    className="w-full border-2 border-gray-300 text-gray-700 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-200 text-center font-semibold py-1 rounded-md cursor-pointer"
-                    title="Logout"
+                {isProfileOpen && (
+                  <div
+                    className="absolute right-0 top-full mt-2 w-85  border-2 border-gray-300 rounded-lg p-5 z-50 shadow-lg"
+                    style={{
+                      background: "linear-gradient(90deg, #dcefe7, #eef6ff)",
+                    }}
                   >
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
-          </header>
+                    {/* Header */}
+                    <div className="text-sm text-gray-500 mb-3 tracking-wide">
+                      Currently in
+                    </div>
+
+                    {/* User Information */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-14 h-14 rounded-full bg-gray-200 border border-gray-400 flex items-center justify-center text-xl font-semibold text-gray-700 shrink-0">
+                        {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+                      </div>
+
+                      <div className="flex-1 overflow-hidden">
+                        <div className="text-gray-900 truncate font-semibold">
+                          {user?.name || "No Name"}
+                        </div>
+                        <div className="text-gray-700 truncate mt-0.5">
+                          {user?.email || "No Email"}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-300 my-3"></div>
+
+                    {/* Role */}
+                    <div className="text-sm text-gray-700 mb-4">
+                      <span className="font-medium">Account Type:</span>{" "}
+                      <span className="text-blue-600 font-semibold">
+                        {user?.role || "User"}
+                      </span>
+                    </div>
+
+                    {/* Logout */}
+                    <button
+                      onClick={() =>
+                        setAlert({
+                          open: true,
+                          title: "Logout",
+                          message: "Are you sure you want to logout?",
+                          type: "confirm",
+                          onConfirm: handleLogout,
+                        })
+                      }
+                      className="w-full border-2 border-gray-300 text-gray-700 hover:bg-red-600 hover:text-white hover:border-red-600 transition-all duration-200 text-center font-semibold py-1 rounded-md cursor-pointer"
+                      title="Logout"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
+            </header>
+          )}
 
           {/* Content */}
           <div className="flex-1 relative overflow-y-auto">

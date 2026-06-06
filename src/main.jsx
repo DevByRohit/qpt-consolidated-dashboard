@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import { CardProvider } from "./dashboard/CardContext";
 import { MasterDataProvider } from "./components/01_form-In-Out/01_hooks/MasterDataContext.jsx";
+import { ProductionPlanningProvider } from "./sidebar-elements/production-planning/components/ProductionPlanningContext.jsx";
 
 import App from "./App.jsx";
 import "./index.css";
@@ -13,7 +14,9 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <CardProvider>
         <MasterDataProvider>
-          <App />
+          <ProductionPlanningProvider>
+            <App />
+          </ProductionPlanningProvider>
         </MasterDataProvider>
       </CardProvider>
     </BrowserRouter>

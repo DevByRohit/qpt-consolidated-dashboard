@@ -28,7 +28,7 @@ const PayrollOperations = () => {
         />
       )}
 
-      {/* Form Render */}
+      {/* Render nested component inside the PayrollOperations */}
       <div className="flex-1 overflow-hidden">
         <Outlet />
       </div>

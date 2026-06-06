@@ -1,11 +1,15 @@
 import { useCards } from "../dashboard/CardContext";
 import CardItem from "../dashboard/CardItem";
 import { useOutletContext } from "react-router-dom";
+import { ROLE_PERMISSIONS, MODULE_ID_MAP } from "../config/permissions";
 
 function Index({ setAlert }) {
   const { cards, loading } = useCards();
   const { searchQuery } = useOutletContext();
   const user = JSON.parse(localStorage.getItem("user"));
+
+  // handle globle search user based
+  const allowedMenus = ROLE_PERMISSIONS[user?.role] || [];
 
   const query = searchQuery?.toLowerCase() || "";
 
@@ -14,7 +18,7 @@ function Index({ setAlert }) {
     return (
       <div className="flex items-center justify-center h-full text-gray-500">
         <p className="text-lg font-medium">
-          Start typing in the search bar to find cards
+          Start typing in the search bar to find systems
         </p>
       </div>
     );
@@ -22,11 +26,23 @@ function Index({ setAlert }) {
 
   // ✅ Global filtering (NO module filter)
   const filteredCards = cards.filter((card) => {
-    return (
+    const modulePermission = MODULE_ID_MAP[card.module];
+
+    const hasPermission = allowedMenus.includes(modulePermission);
+
+    const matchesSearch =
       card.title?.toLowerCase().includes(query) ||
-      card.url?.toLowerCase().includes(query)
-    );
+      card.url?.toLowerCase().includes(query);
+
+    return hasPermission && matchesSearch;
   });
+
+  // const filteredCards = cards.filter((card) => {
+  //   return (
+  //     card.title?.toLowerCase().includes(query) ||
+  //     card.url?.toLowerCase().includes(query)
+  //   );
+  // });
 
   // Group by module
   const grouped = {

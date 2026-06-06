@@ -51,14 +51,14 @@ const MaterialRow = ({
       height: "34px",
     }),
 
-    // 🔥 NEW (for selected value text)
+    // NEW (for selected value text)
     singleValue: (base) => ({
       ...base,
       fontSize: "16px",
       fontWeight: "500",
     }),
 
-    // 🔥 NEW (dropdown options)
+    // (dropdown options)
     option: (base, state) => ({
       ...base,
       fontSize: "14px",
@@ -67,7 +67,7 @@ const MaterialRow = ({
       color: "#111827",
     }),
 
-    // 🔥 NEW (placeholder)
+    // (placeholder)
     placeholder: (base) => ({
       ...base,
       fontSize: "16px",

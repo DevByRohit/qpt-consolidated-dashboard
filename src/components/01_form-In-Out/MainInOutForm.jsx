@@ -90,7 +90,12 @@ const MainInOutForm = () => {
 
   const onSubmit = (data) => {
     // ROLE VALIDATION
-    const allowedRoles = ["Admin", "Developer", "Operation Manager"];
+    const allowedRoles = [
+      "Admin",
+      "Developer",
+      "Operation Manager",
+      "Production Manager",
+    ];
 
     const userRole = user?.role;
 
