@@ -25,3 +25,15 @@ export const formatPrettyDate = (dateString) => {
     year: "numeric",
   });
 };
+
+// Timestamp format → 15 June 2026, 09:11 AM
+export const formatTimestamp = (timestamp) => {
+  return new Date(timestamp).toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};

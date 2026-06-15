@@ -53,10 +53,7 @@ function DashboardLayout() {
 
   // Configure user permissions
   const allowedMenus = ROLE_PERMISSIONS[user?.role] || [];
-
-  console.log(user?.role);
-  console.log(allowedMenus);
-
+  
   const profileRef = useRef(null);
 
   // use for navigate the route

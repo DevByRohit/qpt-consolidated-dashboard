@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, EllipsisVertical, Trash2 } from "lucide-react";
 import EditModal from "./EditModal";
 import { formatPrettyDate } from "../edit/dateFormat";
 import { IN_OUT_API } from "../../apiContainer";
 import Loader from "../../../alert-modal/Loader";
+import TransactionDetailsModal from "./TransactionDetailsModal";
 
 const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // detailed view option
+  const [openDetails, setOpenDetails] = useState(false);
 
   // DELETE HANDLER
   const handleDelete = () => {
@@ -22,7 +26,8 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
 
   // DELETE FUNCTION
   const handleFinalDelete = async () => {
-    if (isDeleting) return; // prevent multiple clicks
+    // prevent multiple clicks
+    if (isDeleting) return;
 
     try {
       setIsDeleting(true);
@@ -66,7 +71,7 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
 
   return (
     <>
-      <div className="relative group border-2 border-gray-500 rounded p-2 shadow-sm hover:shadow-lg transition duration-200 cursor-pointer">
+      <div className="relative group border-2 border-gray-500 rounded p-2 shadow-sm hover:shadow-lg transition duration-200 ">
         {/* CONTENT */}
         <div className="space-y-1 text-xs font-medium uppercase">
           <p>
@@ -87,7 +92,7 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
         </div>
 
         {/* FLOATING ACTION BUTTONS */}
-        <div className="absolute bottom-2 right-2 flex gap-3 opacity-0 group-hover:opacity-100 transition duration-300">
+        <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition duration-300">
           <button
             onClick={() => setOpenEdit(true)}
             title="Edit Entry"
@@ -103,6 +108,15 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
             className={`p-1 rounded border shadow cursor-pointer ${isDeleting ? "opacity-50 cursor-not-allowed" : "hover:bg-red-600 hover:text-white"}`}
           >
             {isDeleting ? "..." : <Trash2 size={18} />}
+          </button>
+
+          <button
+            onClick={() => setOpenDetails(true)}
+            disabled={isDeleting}
+            title="See More"
+            className={`p-1 rounded border shadow cursor-pointer ${isDeleting ? "opacity-50 cursor-not-allowed" : "hover:bg-green-700 hover:text-white"}`}
+          >
+            <EllipsisVertical size={18} />
           </button>
         </div>
       </div>
@@ -120,6 +134,13 @@ const TransactionCard = ({ txn, onRefresh, setAlertConfig }) => {
           onClose={() => setOpenEdit(false)}
           onSuccess={onRefresh}
           setAlertConfig={setAlertConfig}
+        />
+      )}
+
+      {openDetails && (
+        <TransactionDetailsModal
+          txn={txn}
+          onClose={() => setOpenDetails(false)}
         />
       )}
     </>

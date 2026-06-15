@@ -208,7 +208,7 @@ const PlanningForm = ({
         </div>
 
         {/* Bottom Action Bar */}
-        <div className="flex items-center justify-between border">
+        <div className="flex items-center justify-between">
           {/* Left Side Input Field*/}
           <div className="flex items-center gap-3">
             <input
