@@ -53,7 +53,7 @@ function DashboardLayout() {
 
   // Configure user permissions
   const allowedMenus = ROLE_PERMISSIONS[user?.role] || [];
-  
+
   const profileRef = useRef(null);
 
   // use for navigate the route
@@ -89,6 +89,10 @@ function DashboardLayout() {
     },
 
     "/pms/production-planning": {
+      showHeader: false,
+    },
+
+    "/pms/job-card": {
       showHeader: false,
     },
   };

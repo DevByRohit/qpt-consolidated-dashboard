@@ -186,7 +186,7 @@ const MainInOutForm = () => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full h-[86vh] flex flex-col gap-3 overflow-hidden"
+        className="w-full h-[95vh] flex flex-col gap-3 overflow-hidden"
       >
         <FormHeader register={register} user={user} />
 
@@ -206,11 +206,11 @@ const MainInOutForm = () => {
           watch={watch}
         />
 
-        <div className="flex justify-end gap-4">
+        <div className="flex justify-end gap-3">
           <button
             type="button"
             onClick={handleAddRow}
-            className="px-4 py-1.5 font-medium border rounded hover:bg-gray-800 hover:text-white cursor-pointer"
+            className="px-4 py-1.5 font-bold border rounded hover:bg-gray-800 hover:text-white cursor-pointer"
           >
             Add Row
           </button>
@@ -218,7 +218,7 @@ const MainInOutForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`px-4 py-1.5 font-medium border rounded cursor-pointer ${
+            className={`px-4 py-1.5 font-bold border rounded cursor-pointer ${
               isSubmitting
                 ? "bg-gray-400 text-white cursor-not-allowed"
                 : "hover:bg-blue-600 hover:text-white"

@@ -70,7 +70,7 @@ const ProductionPlanning = () => {
   };
 
   return (
-    <div className="">
+    <div>
       {/* Loader */}
       {loading && (
         <Loader
@@ -87,7 +87,6 @@ const ProductionPlanning = () => {
         handlePrintFGAnalysis={handlePrintFGAnalysis}
       />
 
-      {/* Temporary JSON Response Viewer */}
       {planningResult && (
         <>
           <SummaryCards summary={planningResult.summary} />
@@ -96,6 +95,7 @@ const ProductionPlanning = () => {
 
           <FinishedGoodsBreakdown fgBreakdown={planningResult.fg_breakdown} />
 
+          {/* hidden component for generating the pdf report */}
           <div className="hidden">
             <div ref={consolidatedPrintRef}>
               <PrintConsolidatedReport
@@ -106,6 +106,7 @@ const ProductionPlanning = () => {
             </div>
           </div>
 
+          {/* hidden component for generating the pdf report */}
           <div className="hidden">
             <div ref={fgAnalysisPrintRef}>
               <PrintFGAnalysisReport

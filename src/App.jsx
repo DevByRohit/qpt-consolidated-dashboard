@@ -22,6 +22,8 @@ import SalaryDistribution from "./sidebar-elements/salary-distribution/SalaryDis
 
 // Production Planning system
 import ProductionPlanning from "./sidebar-elements/production-planning/ProductionPlanning";
+import JobCardPlanning from "./sidebar-elements/job-card/JobCardPlanning";
+import JobCardContainer from "./sidebar-elements/job-card/JobCardContainer";
 
 function App() {
   return (
@@ -44,14 +46,17 @@ function App() {
         <Route path="fms" element={<FMS />} />
         <Route path="dashboard" element={<Dashboards />} />
 
-        {/* Nested routes for web based forms inside the sidebar element for container */}
+        {/* Nested routes for web based forms inside the sidebar element */}
         <Route path="forms" element={<ReactFormContainer />}>
           <Route path="in-out" element={<MainInOutForm />} />
           <Route path="in-out/edit" element={<EditEntries />} />
         </Route>
 
+        {/* Nested routes for PMS system */}
         <Route path="pms" element={<PMS />}>
           <Route path="production-planning" element={<ProductionPlanning />} />
+          <Route path="job-card" element={<JobCardPlanning />} />
+          <Route path="job-card/container" element={<JobCardContainer />} />
         </Route>
 
         {/* Nested routes for salary distribution system */}

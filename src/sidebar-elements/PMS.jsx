@@ -27,7 +27,7 @@ const PMS = () => {
 
       {/* Render nested component inside the PMS */}
       <div className="flex-1 overflow-hidden">
-        <Outlet />
+        <Outlet context={{ searchQuery: searchQuery }} />
       </div>
 
       {/* <FormsGrid /> */}
