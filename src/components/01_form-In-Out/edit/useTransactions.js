@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { IN_OUT_API } from "../../apiContainer";
 
-const cache = {}; // global cache
+// global cache
+const cache = {}; 
 
 const useTransactions = (selectedDate) => {
   const [transactions, setTransactions] = useState([]);
