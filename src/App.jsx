@@ -24,6 +24,7 @@ import SalaryDistribution from "./sidebar-elements/salary-distribution/SalaryDis
 import ProductionPlanning from "./sidebar-elements/production-planning/ProductionPlanning";
 import JobCardPlanning from "./sidebar-elements/job-card/JobCardPlanning";
 import JobCardContainer from "./sidebar-elements/job-card/JobCardContainer";
+import AdvanceDistribution from "./sidebar-elements/salary-distribution/advance-distribution/AdvanceDistribution";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
           }
         >
           <Route path="salary-dist" element={<SalaryDistribution />} />
+          <Route path="advance-dist" element={<AdvanceDistribution />} />
         </Route>
       </Route>
     </Routes>

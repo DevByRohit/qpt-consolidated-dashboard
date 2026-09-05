@@ -95,6 +95,13 @@ function DashboardLayout() {
     "/pms/job-card": {
       showHeader: false,
     },
+
+    "/payroll/salary-dist": {
+      showHeader: false,
+    },
+    "/payroll/advance-dist": {
+      showHeader: false,
+    },
   };
 
   const currentHeaderConfig = HEADER_CONFIG[location.pathname];
